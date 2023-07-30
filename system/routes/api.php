@@ -25,3 +25,5 @@ Route::get('/sensors/latest', [ApiController::class, 'latest']);
 Route::get('/sensors/date_range', [ApiController::class, 'getByDateRange']);
 
 Route::get('/locations', [ApiController::class, 'getLocations']);
+
+Route::post('/sensorpost', [ApiPostController::class, 'storeOrUpdate']);
