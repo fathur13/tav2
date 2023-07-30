@@ -29,7 +29,6 @@
                     }
                 });
             }, 1000);
-
         })
     </script>
 
@@ -50,7 +49,7 @@
                             </div>
                         </div>
                         <div class="ap-po-details-time">
-                            <small id="ketinggian-air"></small>
+                            <small id="ketinggian-air"></small> cm,
                             <span id="kid-status"></i>
                                 <strong></strong></span>
                         </div>
@@ -82,7 +81,7 @@
                     <div class="overview-content w-100">
                         <div class="ap-po-details-content d-flex flex-wrap justify-content-between">
                             <div class="ap-po-details__titlebar">
-                                <h1>Temperature</h1>
+                                <h1>Kelembapan</h1>
                             </div>
                             <div class="ap-po-details__icon-area">
                                 <div class="svg-icon order-bg-opacity-secondary color-secondary">
@@ -135,7 +134,8 @@
                                             alt="more-horizontal" class="svg">
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" onclick="downloadKetinggianAirChart()">Download Chart</a>
+                                        <a class="dropdown-item" href="#"
+                                            onclick="downloadKetinggianAirChart()">Download Chart</a>
                                     </div>
                                 </div>
                             </div>
@@ -170,8 +170,8 @@
                             <div class="dropdown dropleft">
                                 <a href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">
-                                    <img src="{{ url('public/assets') }}/img/svg/more-horizontal.svg"
-                                        alt="more-horizontal" class="svg">
+                                    <img src="{{ url('public/assets') }}/img/svg/more-horizontal.svg" alt="more-horizontal"
+                                        class="svg">
                                 </a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#" onclick="downloadSuhuChart()">Download Chart</a>
@@ -211,7 +211,8 @@
                                         alt="more-horizontal" class="svg">
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#" onclick="downloadKelembapanChart()">Download Chart</a>
+                                    <a class="dropdown-item" href="#" onclick="downloadKelembapanChart()">Download
+                                        Chart</a>
                                 </div>
                             </div>
                         </div>
@@ -240,13 +241,27 @@
                         Data <a href="{{ url('report/export') }}" class="btn btn-sm btn-success float-right">Ekspor
                             Data</a>
                     </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <label for="mulai_tanggal">Tanggal Awal:</label>
+                                <input type="date" class="form-control" id="mulai_tanggal">
+                            </div>
+                            <div class="form-group col-lg-5">
+                                <label for="selesai_tanggal">Tanggal Akhir:</label>
+                                <input type="date" class="form-control" id="selesai_tanggal">
+                            </div>
+                            <div class="col-lg-1 mt-20">
+                                <button class="btn btn-sm btn-primary" onclick="exportDataWaktu()">Export</button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body p-0">
-
                         <div class="tab-content">
                             <div class="tab-pane fade active show" id="t_selling-today" role="tabpanel"
                                 aria-labelledby="t_selling-today-tab">
                                 <div class="selling-table-wrap">
-                                    <div class="table-responsive">
+                                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                         <table class="table table--default table-borderless">
                                             <thead>
                                                 <tr>
@@ -333,9 +348,9 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        max: 200,
+                        max: 100,
                         ticks: {
-                            stepSize: 70
+                            stepSize: 25
                         }
                     }
                 }
@@ -365,7 +380,7 @@
 
                     data.forEach(function(data) {
                         const bulan = getBulan(data.created_at);
-                        const ketinggianAir = data.ketinggian_air;
+                        const ketinggianAir = parseFloat(data.ketinggian_air);
                         const dataDate = new Date(data.created_at);
 
                         // Memeriksa apakah data berada dalam satu tahun terakhir
@@ -384,9 +399,12 @@
 
                     // Menghitung rata-rata perbulan dan menambahkan data ke grafik
                     for (const bulan in dataBulan) {
-                        const rataRata = dataBulan[bulan].total / dataBulan[bulan].count;
-                        chart.data.labels.push(bulan);
-                        chart.data.datasets[0].data.push(rataRata);
+                        if (dataBulan[bulan] && dataBulan[bulan].count > 0) {
+                            const rataRata = dataBulan[bulan].total / dataBulan[bulan].count;
+                            chart.data.labels.push(bulan);
+                            chart.data.datasets[0].data.push(rataRata);
+                        }
+
                     }
 
                     chart.update();
@@ -426,9 +444,9 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        max: 200,
+                        max: 100,
                         ticks: {
-                            stepSize: 70
+                            stepSize: 25
                         }
                     }
                 }
@@ -458,7 +476,7 @@
 
                     data.forEach(function(data) {
                         const bulan = getBulan(data.created_at);
-                        const suhu = data.suhu;
+                        const suhu = parseFloat(data.suhu);
                         const dataDate = new Date(data.created_at);
 
                         // Memeriksa apakah data berada dalam satu tahun terakhir
@@ -477,9 +495,11 @@
 
                     // Menghitung rata-rata perbulan dan menambahkan data ke grafik
                     for (const bulan in dataBulan) {
-                        const rataRata = dataBulan[bulan].total / dataBulan[bulan].count;
-                        chartSuhu.data.labels.push(bulan);
-                        chartSuhu.data.datasets[0].data.push(rataRata);
+                        if (dataBulan[bulan] && dataBulan[bulan].count > 0) {
+                            const rataRata = dataBulan[bulan].total / dataBulan[bulan].count;
+                            chartSuhu.data.labels.push(bulan);
+                            chartSuhu.data.datasets[0].data.push(rataRata);
+                        }
                     }
 
                     chartSuhu.update();
@@ -494,7 +514,6 @@
                 const date = new Date(tanggal);
                 return bulan[date.getMonth()];
             }
-
         }
     </script>
 
@@ -519,9 +538,9 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        max: 200,
+                        max: 100,
                         ticks: {
-                            stepSize: 70
+                            stepSize: 25
                         }
                     }
                 }
@@ -551,7 +570,7 @@
 
                     data.forEach(function(data) {
                         const bulan = getBulan(data.created_at);
-                        const kelembapan = data.kelembapan;
+                        const kelembapan = parseFloat(data.kelembapan);
                         const dataDate = new Date(data.created_at);
 
                         // Memeriksa apakah data berada dalam satu tahun terakhir
@@ -570,9 +589,11 @@
 
                     // Menghitung rata-rata perbulan dan menambahkan data ke grafik
                     for (const bulan in dataBulan) {
-                        const rataRata = dataBulan[bulan].total / dataBulan[bulan].count;
-                        chartKelembapan.data.labels.push(bulan);
-                        chartKelembapan.data.datasets[0].data.push(rataRata);
+                        if (dataBulan[bulan] && dataBulan[bulan].count > 0) {
+                            const rataRata = dataBulan[bulan].total / dataBulan[bulan].count;
+                            chartKelembapan.data.labels.push(bulan);
+                            chartKelembapan.data.datasets[0].data.push(rataRata);
+                        }
                     }
 
                     chartKelembapan.update();
@@ -591,7 +612,7 @@
         }
     </script>
 
-    {{-- download  --}}
+    {{-- function --}}
     <script>
         function downloadKetinggianAirChart() {
             const base64Image = chart.canvas.toDataURL("image/png");
@@ -601,6 +622,7 @@
             downloadLink.download = 'chart_Suhu.png';
             downloadLink.click();
         }
+
         function downloadSuhuChart() {
             const base64Image = chartSuhu.canvas.toDataURL("image/png");
 
@@ -609,6 +631,7 @@
             downloadLink.download = 'chart_Suhu.png';
             downloadLink.click();
         }
+
         function downloadKelembapanChart() {
             const base64Image = chartKelembapan.canvas.toDataURL("image/png");
 
@@ -617,5 +640,23 @@
             downloadLink.download = 'chart_kelembapan.png';
             downloadLink.click();
         }
+
+        function exportDataWaktu() {
+            const mulaiTanggal = document.getElementById('mulai_tanggal').value;
+            const selesaiTanggal = document.getElementById('selesai_tanggal').value;
+
+            // Redirect ke URL dengan query string berisi range tanggal yang dipilih
+            window.location.href = "{{ url('report/exportbyrange') }}" + "?mulai_tanggal=" + mulaiTanggal +
+                "&selesai_tanggal=" + selesaiTanggal;
+        }
     </script>
+
+    <style>
+        .dynamic-table {
+            max-height: 400px;
+            /* Tentukan tinggi maksimal tabel */
+            overflow-y: auto;
+            /* Tambahkan scroll vertikal jika diperlukan */
+        }
+    </style>
 @endsection

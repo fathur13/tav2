@@ -227,11 +227,6 @@
                                                 </td>
                                                 <td>
                                                     <div class="userDatatable-content">
-                                                        {{ $data->sensor }}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="userDatatable-content">
                                                         {{ $data->created_at }}
                                                     </div>
                                                 </td>

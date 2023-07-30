@@ -6,7 +6,7 @@
 @section('conten')
     {{-- panggil file jquery untuk proses realtime --}}
     <script type="text/javascript" src="{{ url('public/assets/jquery/jquery.min.js') }}"></script>
-    
+
     {{-- ajax untuk realtime --}}
     <script type="text/javascript">
         $(document).ready(function() {
@@ -21,7 +21,7 @@
                         $("#cuaca-img").attr("src",
                             "{{ url('public/assets/img/cuaca/hujan.png') }}");
                         // Mengubah teks menjadi "Hujan"
-                        $("#cuaca-text").text("is raining!");
+                        $("#cuaca-text").text("Hujan!");
                         // Mengubah latar belakang menjadi gambar hujan
                         $("#background-img").css("background-image",
                             "url({{ url('public/assets/img/cuaca/mendung.jpg') }})");
@@ -30,7 +30,7 @@
                         $("#cuaca-img").attr("src",
                             "{{ url('public/assets/img/cuaca/cerah.png') }}");
                         // Mengubah teks menjadi "Tidak hujan"
-                        $("#cuaca-text").text("is not raining!");
+                        $("#cuaca-text").text("Tidak Hujan!");
                         // Mengubah latar belakang menjadi gambar cerah
                         $("#background-img").css("background-image",
                             "url({{ url('public/assets/img/cuaca/backgroun-cerah.jpg') }})");
@@ -81,7 +81,7 @@
                                         </svg>
                                     </button>
                                     <div class="dropdown-default dropdown-bottomLeft dropdown-menu-right dropdown-menu">
-                                        <a class="dropdown-item" href="#">view</a>
+                                        <a class="dropdown-item" href="{{ url('ketinggian_air') }}">view</a>
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +148,9 @@
                                 class="svg">
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">View</a>
+                            <a class="dropdown-item" href="{{ url('suhu') }}">View Suhu</a>
+                            <a class="dropdown-item" href="{{ url('kelembapan') }}">View Kelembapan</a>
+                            <a class="dropdown-item" href="{{ url('cuaca') }}">View Cuaca</a>
                         </div>
                     </div>
                 </div>
@@ -226,6 +228,9 @@
                                         <span class="userDatatable-title">Kelembapan</span>
                                     </th>
                                     <th>
+                                        <span class="userDatatable-title">Cuaca</span>
+                                    </th>
+                                    <th>
                                         <span class="userDatatable-title">Timestamp</span>
                                     </th>
                                     <th>
@@ -270,7 +275,7 @@
                                         </td>
                                         <td>
                                             <div class="userDatatable-content">
-                                                {{ $data->sensor }}
+                                                {{ $data->status_air }}
                                             </div>
                                         </td>
                                         <td>
@@ -295,8 +300,27 @@
                         </table>
                     </div>
                 </div>
+                <div style="margin-left: 2%; font-size: 12px;">
+                    <p>Keterangan :</p>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 20px; height: 20px; background-color: red; margin-right: 10px;"></div>
+                        <p>Bahaya (ketinggian air antara 70 hingga 88)</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 20px; height: 20px; background-color: orange; margin-right: 10px;"></div>
+                        <p>Siaga (ketinggian air antara 50 hingga 69)</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 20px; height: 20px; background-color: yellow; margin-right: 10px;"></div>
+                        <p>Warning (ketinggian air antara 20 hingga 49)</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 20px; height: 20px; background-color: blue; margin-right: 10px;"></div>
+                        <p>Normal (ketinggian air kurang dari 20)</p>
+                    </div>
+                </div>
+                
             </div>
-
         </div>
     </div>
 
@@ -446,7 +470,7 @@
         }
 
         #map {
-            height: 460px;
+            height: 600px;
         }
     </style>
 

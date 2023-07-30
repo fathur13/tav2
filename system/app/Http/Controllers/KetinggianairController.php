@@ -15,38 +15,42 @@ class KetinggianairController extends Controller
         return view('ketinggian_air', compact('datas', 'datass'));
     }
     public function getKIDStatus()
-    {
-        // Mengambil data terbaru dari database
-        $latestData = Sensor::orderBy('created_at', 'desc')->first();
-        if ($latestData->ketinggian_air < 0) {
-            $latestData->ketinggian_air = 0;
-        }
+{
+    // Mengambil data terbaru dari database
+    $kenaikan_air = Sensor::orderBy('created_at', 'desc')->first();
 
+    if ($kenaikan_air) { // Perlu dilakukan pengecekan apakah data $kenaikan_air ada atau tidak
         // Mengecek ketinggian air dan menentukan status dan warna background
-        if ($latestData->ketinggian_air < 10) {
-            $status = "Normal"; // Jika ketinggian air < 10 cm, status menjadi "Tenggelam"
-            $color = "info"; // Background menjadi merah
-        } else if ($latestData->ketinggian_air < 100) {
-            $status = "Waspada"; // Jika ketinggian air < 50 cm, status menjadi "banjir"
-            $color = "warning"; // Background menjadi kuning
-        } else if ($latestData->ketinggian_air < 150) {
-            $status = "Siaga"; // Jika ketinggian air < 100 cm, status menjadi "Hati-hati"
-            $color = "#F75B00"; // Background menjadi kuning
-        } else if ($latestData->ketinggian_air < 200) {
-            $status = "Banjir"; // Jika ketinggian air < 200 cm, status menjadi "Siaga"
-            $color = "danger"; // Background menjadi biru
+        if ($kenaikan_air->ketinggian_air >= 70 && $kenaikan_air->ketinggian_air <= 88) {
+            $status = "Bahaya"; 
+            $color = "danger"; 
+        } else if ($kenaikan_air->ketinggian_air >= 50 && $kenaikan_air->ketinggian_air < 70) {
+            $status = "Siaga"; 
+            $color = "#F75B00"; 
+        } else if ($kenaikan_air->ketinggian_air >= 20 && $kenaikan_air->ketinggian_air < 50) {
+            $status = "Warning"; 
+            $color = "warning"; 
         } else {
-            $status = "Aman"; // Jika ketinggian air >= 200 cm, status menjadi "Aman"
-            $color = "success"; // Background menjadi hijau
+            $status = "Normal";
+            $color = "info"; 
         }
 
         // Mengembalikan data dalam bentuk JSON
         return response()->json([
             'status' => $status,
             'color' => $color,
-            'ketinggian_air' => $latestData->ketinggian_air
+            'ketinggian_air' => $kenaikan_air->ketinggian_air
+        ]);
+    } else {
+        // Jika data tidak ditemukan, kembalikan respon JSON dengan status dan warna default
+        return response()->json([
+            'status' => "Normal",
+            'color' => "info",
+            'ketinggian_air' => null
         ]);
     }
+}
+
     public function chartMenit()
     {
         $data = Sensor::get();

@@ -45,7 +45,7 @@
                                 <div class="nav-author__options">
                                     <ul>
                                         <li>
-                                            <a href>
+                                            <a href="{{ url('profile') }}">
                                                 <i class="uil uil-user"></i> Profile</a>
                                         </li>
                                         <li>

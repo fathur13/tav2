@@ -32,10 +32,25 @@ Route::get('/profile', function () {
 });
 
 Route::get('/apichart', [DashboardController::class, 'apiChart']);
+
+
 Route::get('/get-ka-status', [KetinggianairController::class, 'getKIDStatus'])->name('get-ka-status');
+Route::get('/chartMenit', [KetinggianairController::class, 'chartMenit']);
+Route::get('/chartJam', [KetinggianairController::class, 'chartJam']);
+Route::get('/chartHari', [KetinggianairController::class, 'chartHari']);
+
+Route::get('/chartKelembapanDetik', [KelembapanController::class, 'chartDetik']);
+Route::get('/chartKelembapanJam', [KelembapanController::class, 'chartJam']);
+Route::get('/chartKelembapanHari', [KelembapanController::class, 'chartHari']);
 Route::get('/bacakelembapan', [KelembapanController::class, 'bacakelembapan']);
+
 Route::get('/bacacuaca', [CuacaController::class, 'bacacuaca']);
+Route::get('/chartCuacaDetik', [CuacaController::class, 'chartDetik']);
+
 Route::get('/bacasuhu', [SuhuController::class, 'bacasuhu']);
+Route::get('/chartSuhuDetik', [SuhuController::class, 'chartDetik']);
+Route::get('/chartSuhuJam', [SuhuController::class, 'chartJam']);
+Route::get('/chartSuhuHari', [SuhuController::class, 'chartHari']);
 
 Route::middleware('auth')->group(function () {
     // dashboard
@@ -44,33 +59,24 @@ Route::middleware('auth')->group(function () {
 
     //ketinggian air
     Route::get('/ketinggian_air', [KetinggianairController::class, 'index']);
-    Route::get('/chartMenit', [KetinggianairController::class, 'chartMenit']);
-    Route::get('/chartJam', [KetinggianairController::class, 'chartJam']);
-    Route::get('/chartHari', [KetinggianairController::class, 'chartHari']);
     Route::get('/ketinggian_air/export', [KetinggianairController::class, 'export']);
 
     //suhu
     Route::get('/suhu', [SuhuController::class, 'index']);
-    Route::get('/chartSuhuDetik', [SuhuController::class, 'chartDetik']);
-    Route::get('/chartSuhuJam', [SuhuController::class, 'chartJam']);
-    Route::get('/chartSuhuHari', [SuhuController::class, 'chartHari']);
     Route::get('/suhu/export', [SuhuController::class, 'export']);
 
     //kelembapan
     Route::get('/kelembapan', [KelembapanController::class, 'index']);
-    Route::get('/chartKelembapanDetik', [KelembapanController::class, 'chartDetik']);
-    Route::get('/chartKelembapanJam', [KelembapanController::class, 'chartJam']);
-    Route::get('/chartKelembapanHari', [KelembapanController::class, 'chartHari']);
     Route::get('/kelembapan/export', [KelembapanController::class, 'export']);
 
     //cuaca
     Route::get('/cuaca', [CuacaController::class, 'index']);
-    Route::get('/chartCuacaDetik', [CuacaController::class, 'chartDetik']);
     Route::get('/cuaca/export', [CuacaController::class, 'export']);
 
     //report
     Route::get('/report', [ReportController::class, 'index']);
     Route::get('/report/export', [ReportController::class, 'export']);
+    Route::get('/report/exportbyrange', [ReportController::class, 'exportbyrange']);
 });
 
 //Api

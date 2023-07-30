@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataKondisi;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class ReportController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $datas = DataKondisi::orderBy('created_at', 'desc')->get();
         return view('report', compact('datas'));
     }
@@ -22,7 +24,7 @@ class ReportController extends Controller
 
         //data
         foreach ($datas as $data) {
-            $csvData .=$data->sensor . ',' . $data->location. ',' . $data->status_air . ',' . $data->created_at . "\n";
+            $csvData .= $data->sensor . ',' . $data->location . ',' . $data->status_air . ',' . $data->created_at . "\n";
         }
 
         $filename = 'laporan Cuaca.csv';
@@ -30,7 +32,35 @@ class ReportController extends Controller
         // set header
         $header = [
             'Content-Type' => "text/csv",
-            'Content-Disposition' => 'attachmen; filename=' . $filename, 
+            'Content-Disposition' => 'attachmen; filename=' . $filename,
+        ];
+
+        // return respons file CSV
+        return Response::make($csvData, 200, $header);
+    }
+
+    public function exportByRange(Request $request)
+    {
+        $mulaiTanggal = $request->input('mulai_tanggal');
+        $selesaiTanggal = $request->input('selesai_tanggal');
+
+        $datas = DataKondisi::whereBetween('created_at', [$mulaiTanggal, $selesaiTanggal])->get();
+        $csvData = '';
+
+        //header
+        $csvData .= "Perangkat,Lokasi, Cuaca , Timestamp\n";
+
+        //data
+        foreach ($datas as $data) {
+            $csvData .= $data->sensor . ',' . $data->location . ',' . $data->status_air . ',' . $data->created_at . "\n";
+        }
+
+        $filename = 'laporan Cuaca.csv';
+
+        // set header
+        $header = [
+            'Content-Type' => "text/csv",
+            'Content-Disposition' => 'attachmen; filename=' . $filename,
         ];
 
         // return respons file CSV

@@ -19,7 +19,7 @@
                         $("#cuaca-img").attr("src",
                             "{{ url('public/assets/img/cuaca/hujan.png') }}");
                         // Mengubah teks menjadi "Hujan"
-                        $("#cuaca-text").text("is raining!");
+                        $("#cuaca-text").text("Hujan!");
                         // Mengubah latar belakang menjadi gambar hujan
                         $("#background-img").css("background-image",
                             "url({{ url('public/assets/img/cuaca/mendung.jpg') }})");
@@ -28,7 +28,7 @@
                         $("#cuaca-img").attr("src",
                             "{{ url('public/assets/img/cuaca/cerah.png') }}");
                         // Mengubah teks menjadi "Tidak hujan"
-                        $("#cuaca-text").text("is not raining!");
+                        $("#cuaca-text").text("Tidak Hujan!");
                         // Mengubah latar belakang menjadi gambar cerah
                         $("#background-img").css("background-image",
                             "url({{ url('public/assets/img/cuaca/backgroun-cerah.jpg') }})");
