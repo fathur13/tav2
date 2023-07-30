@@ -125,7 +125,7 @@
                                         <div class="account-profile">
                                             <div class="ap-img w-100 d-flex justify-content-center">
                                                 <img class="ap-img__main rounded-circle mb-3  wh-120 d-flex bg-opacity-primary"
-                                                    src="{{ url('public/assets') }}/img/author/profile.png" alt="profile">
+                                                    src="{{ url('public/assets') }}/img/avatar.png" alt="profile">
                                             </div>
                                             <div class="ap-nameAddress pb-3 pt-1">
                                                 <h5 class="ap-nameAddress__title">{{ Auth::user()->name }}</h5>
@@ -142,22 +142,6 @@
                                                         src="{{ url('public/assets') }}/img/svg/user-plus.svg" alt="user-plus" class="svg">
                                                     follow
                                                 </button>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer mt-20 pt-20 pb-20 px-0 bg-transparent">
-                                            <div class="profile-overview d-flex justify-content-between flex-wrap">
-                                                <div class="po-details">
-                                                    <h6 class="po-details__title pb-1">$72,572</h6>
-                                                    <span class="po-details__sTitle">Total Revenue</span>
-                                                </div>
-                                                <div class="po-details">
-                                                    <h6 class="po-details__title pb-1">3,257</h6>
-                                                    <span class="po-details__sTitle">order</span>
-                                                </div>
-                                                <div class="po-details">
-                                                    <h6 class="po-details__title pb-1">74</h6>
-                                                    <span class="po-details__sTitle">Products</span>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -193,10 +177,7 @@
                                         <div class="card-body pt-md-1 pt-0">
                                             <div class="user-content-info">
                                                 <p class="user-content-info__item">
-                                                    <img class="svg" src="{{ url('public/assets') }}/img/svg/mail.svg" alt="mail"><a
-                                                        href="https://demo.dashboardmarket.com/cdn-cgi/l/email-protection"
-                                                        class="__cf_email__"
-                                                        data-cfemail="47042b263e33282907223f262a372b226924282a">[email&#160;protected]</a>
+                                                    <img class="svg" src="{{ url('public/assets') }}/img/svg/mail.svg" alt="mail">{{ Auth::user()->email }}</a>
                                                 </p>
                                                 <p class="user-content-info__item">
                                                     <img src="{{ url('public/assets') }}/img/svg/phone.svg" alt="phone" class="svg">+44

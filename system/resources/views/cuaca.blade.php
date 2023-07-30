@@ -49,47 +49,9 @@
     </script>
     <div class="container-fluid">
         <div class="row ">
-            {{-- chart --}}
-            <div class="col-xxl-8 col-lg-8 mb-25">
-                <div class="card revenueChartTwo border-0">
-                    <div class="card-header">
-                        <h6>Cuaca</h6>
-                        <div class="card-extra">
-                            <div class="dropdown dropleft">
-                                <a href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <img src="{{ url('public/assets') }}/img/svg/more-horizontal.svg" alt="more-horizontal"
-                                        class="svg">
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">View</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-12 col-lg-6 mb-25">
-                        <div class="card border-0 chartLine-po-details h-100">
-                            <div class="card-body">
-                                <div class="wp-chart">
-                                    <div class="parentContainer">
-                                        <div>
-                                            <div class="col-xl-12" style="margin-bottom: 10px; height:20rem">
-                                                <canvas id="realtime-chart"></canvas>
-                                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {{-- data cuaca dan data kelembapan dan kelembapan --}}
-            <div class="col-xxl-4 col-lg-4 mb-25">
+            <div class="col-xxl-6 col-lg-6 mb-25">
                 <div class="card revenueChartTwo border-0">
                     <div class="card-header">
                         <h6>Data Cuaca</h6>
@@ -106,19 +68,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card revenueChartTwo border-0" style="height:23rem">
+                    <div class="card revenueChartTwo border-0" style="height:30rem">
                         <div id="background-img" class="text-center p-5"
-                            style="background-image: url({{ url('public/assets/img/cuaca/mendung.jpg') }}); height: 23rem">
+                            style="background-image: url({{ url('public/assets/img/cuaca/mendung.jpg') }}); height: 30rem">
                             <img id="cuaca-img" src="{{ url('public/assets/img/cuaca/hujan.png') }}" width="100"
-                                alt="">
+                                alt="" style="margin-top: 20%">
                             <h3 id="cuaca-text" class="mt-3 mb-0 text-white"></h3>
                         </div>
                     </div>
                 </div>
             </div>
 
+            {{-- maps --}}
+            <div class="col-xxl-6 col-lg-6 mb-25">
+                <div class="card card-default card-md mb-4">
+                    <div class="card-header">
+                        <h6>maps</h6>
+                    </div>
+                    <div class="card-body">
+                        <div id="map" style="height: 450px"></div>
+                    </div>
+                </div>
+            </div>
+
             {{-- table  --}}
-            <div class="col-xxl-7 col-lg-6 mb-25">
+            <div class="col-xxl-12 col-lg-12 mb-25">
                 <div class="card p-0">
                     <div class="card-header color-dark fw-500">
                         Data <a href="{{ url('cuaca/export') }}" class="btn btn-sm btn-success float-right">Ekspor
@@ -196,17 +170,6 @@
                 </div>
             </div>
 
-            {{-- maps --}}
-            <div class="col-xxl-5 mb-25">
-                <div class="card card-default card-md mb-4">
-                    <div class="card-header">
-                        <h6>maps</h6>
-                    </div>
-                    <div class="card-body">
-                        <div id="map" style="height: 450px"></div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
