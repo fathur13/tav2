@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\ApiPostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
