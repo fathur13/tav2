@@ -95,7 +95,7 @@
             <div class="col-xxl-12 col-lg-12 mb-25">
                 <div class="card p-0">
                     <div class="card-header color-dark fw-500">
-                        Data <a href="{{ url('cuaca/export') }}" class="btn btn-sm btn-success float-right">Ekspor
+                        Data Per Jam<a href="{{ url('cuaca/export') }}" class="btn btn-sm btn-success float-right">Ekspor
                             Data</a>
                     </div>
                     <div class="card-body p-0" style="height: : 10 rem">
@@ -108,9 +108,6 @@
                                                 <span class="userDatatable-title">No</span>
                                             </th>
                                             <th>
-                                                <span class="userDatatable-title">Perangkat</span>
-                                            </th>
-                                            <th>
                                                 <span class="userDatatable-title">Lokasi</span>
                                             </th>
                                             <th>
@@ -119,15 +116,15 @@
                                             <th>
                                                 <span class="userDatatable-title">Timestamp</span>
                                             </th>
-                                            <th>
-                                                <span class="userDatatable-title">Aksi</span>
-                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $no = 1
+                                        @endphp
                                         @foreach ($datas as $data)
                                             <tr>
-                                                <td></td>
+                                                <td>{{ $no++ }}</td>
                                                 <td>
                                                     <div class="userDatatable-content">
                                                         {{ $data->sensor }}
@@ -135,29 +132,18 @@
                                                 </td>
                                                 <td>
                                                     <div class="userDatatable-content">
-                                                        {{ $data->location }}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="userDatatable-content">
-                                                        {{ $data->status_air }}
+                                                        @if ($data->status_air == 1)
+                                                            Hujan
+                                                        @elseif ($data->status_air == 2)
+                                                            Tidak Hujan
+                                                        @else
+                                                            Data Tidak Valid
+                                                        @endif
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="userDatatable-content">
                                                         {{ $data->created_at }}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="userDatatable-content">
-                                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                            action="#" method="POST">
-                                                            <a href="#" class="btn btn-sm btn-primary">EDIT</a>
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-sm btn-danger">HAPUS</button>
-                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -172,67 +158,6 @@
 
         </div>
     </div>
-
-    {{-- secript chart detik --}}
-    {{-- <script>
-        const ctx = document.getElementById('realtime-chart').getContext('2d');
-
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Intensitas Hujan',
-                    data: [],
-                    borderWidth: 4,
-                    borderColor: 'rgba(153, 0, 153)',
-                    tension: 0.4,
-                    fill: false
-                }]
-            },
-            options: {
-                maintainAspectRatio: false, // Nonaktifkan perbandingan aspek agar dapat mengatur tinggi secara bebas
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 50,
-                        ticks: {
-                            stepSize: 10
-                        }
-                    }
-                }
-            }
-        });
-
-        function fetchData() {
-            $.ajax({
-                url: 'chartCuacaDetik',
-                type: 'GET',
-                success: function(data) {
-                    var waktu = new Date(data.created_at);
-                    var jam = waktu.getUTCHours().toString().padStart(2, '0');
-                    var menit = waktu.getUTCMinutes().toString().padStart(2, '0');
-                    var detik = waktu.getUTCSeconds().toString().padStart(2, '0');
-                    chart.data.labels.push(jam + ':' + menit + ':' + detik);
-                    if (chart.data.labels.length > 12) {
-                        chart.data.labels = chart.data.labels.slice(-12);
-                    }
-                    // push data kelembapan
-                    chart.data.datasets[0].data.push(data.status_air);
-                    if (chart.data.datasets[0].data.length > 12) {
-                        chart.data.datasets[0].data = chart.data.datasets[0].data.slice(-12);
-                    }
-                    chart.update();
-                }
-            });
-        }
-
-
-        // Memanggil fetchData pertama kali untuk menampilkan data pertama
-        fetchData();
-
-        setInterval(fetchData, 5000);
-    </script> --}}
 
     {{-- map --}}
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>

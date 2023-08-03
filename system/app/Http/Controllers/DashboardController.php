@@ -11,10 +11,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $datas = Sensor::all();
+        $datas = Sensor::latest()->get();
         $datass = Sensor::latest()->first();
         return view('dashboard', compact('datas', 'datass'));
-        
     }
 
     public function apiChart()
@@ -30,15 +29,15 @@ class DashboardController extends Controller
 
     public function export()
     {
-        $datas = Sensor::get()->all();
+        $datas = Sensor::latest()->get()->all();
         $csvData = '';
 
         //header
-        $csvData .= "Perangkat,Lokasi,Ketinggian air,Suhu,Kelembapan, Timestamp\n";
+        $csvData .= "Lokasi,Ketinggian air,Suhu,Kelembapan, Timestamp\n";
 
         //data
         foreach ($datas as $data) {
-            $csvData .=$data->sensor . ',' . $data->location. ',' . $data->ketinggian_air. ',' . $data->suhu. ',' . $data->kelembapan. ',' . $data->created_at . "\n";
+            $csvData .=$data->sensor . ',' . $data->ketinggian_air. ',' . $data->suhu. ',' . $data->kelembapan. ',' . $data->created_at . "\n";
         }
 
         $filename = 'laporan.csv';

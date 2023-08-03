@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataKondisi;
 use App\Models\Sensor;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ class SuhuController extends Controller
 {
     public function index()
     {
-        $datas = Sensor::get();
+        $datas = Sensor::latest()->get();
         $datass = Sensor::latest()->first();
         return view('suhu', compact('datas', 'datass'));
     }
@@ -33,7 +34,7 @@ class SuhuController extends Controller
 
     public function chartJam()
     {
-        $data = Sensor::get();
+        $data = DataKondisi::get();
         return response()->json($data);
     }
     public function chartHari()
@@ -48,11 +49,11 @@ class SuhuController extends Controller
         $csvData = '';
 
         //header
-        $csvData .= "Perangkat,Lokasi,Suhu, Timestamp\n";
+        $csvData .= "Lokasi,Suhu, Timestamp\n";
 
         //data
         foreach ($datas as $data) {
-            $csvData .=$data->sensor . ',' . $data->location. ',' . $data->suhu.  ',' . $data->created_at . "\n";
+            $csvData .=$data->sensor . ',' . $data->suhu.  ',' . $data->created_at . "\n";
         }
 
         $filename = 'laporan_suhu.csv';

@@ -11,7 +11,7 @@ class CuacaController extends Controller
 {
     public function index()
     {
-        $datas = Sensor::get();
+        $datas = Sensor::latest()->get();
         $datass = Sensor::latest()->first();
         return view('cuaca', compact('datas', 'datass'));
     }
@@ -30,11 +30,11 @@ class CuacaController extends Controller
         $csvData = '';
 
         //header
-        $csvData .= "Perangkat,Lokasi, Cuaca , Timestamp\n";
+        $csvData .= "Lokasi, Cuaca , Timestamp\n";
 
         //data
         foreach ($datas as $data) {
-            $csvData .=$data->sensor . ',' . $data->location. ',' . $data->status_air . ',' . $data->created_at . "\n";
+            $csvData .=$data->sensor . ',' . $data->status_air . ',' . $data->created_at . "\n";
         }
 
         $filename = 'laporan Cuaca.csv';

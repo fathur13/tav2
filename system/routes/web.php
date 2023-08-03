@@ -33,7 +33,6 @@ Route::get('/profile', function () {
 
 Route::get('/apichart', [DashboardController::class, 'apiChart']);
 
-
 Route::get('/get-ka-status', [KetinggianairController::class, 'getKIDStatus'])->name('get-ka-status');
 Route::get('/chartMenit', [KetinggianairController::class, 'chartMenit']);
 Route::get('/chartJam', [KetinggianairController::class, 'chartJam']);

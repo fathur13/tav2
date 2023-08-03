@@ -51,7 +51,7 @@
                             </div>
                             <div class="banner-card__top align-center-v justify-content-between">
                                 <div>
-                                    <h5 style="color: #fff">Status KID</h5>
+                                    <h5 style="color: #fff">Status Ketinggian Muka Air</h5>
                                     <h1
                                         style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:#fff">
                                         <span id="kid-status">-</span>
@@ -81,7 +81,8 @@
                                         class="svg">
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">View</a>
+                                    <a class="dropdown-item" href="#"
+                                        onclick="downloadKetinggianAirMenitChart()">Download Chart</a>
                                 </div>
                             </div>
                         </div>
@@ -114,11 +115,12 @@
                             <div class="dropdown dropleft">
                                 <a href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">
-                                    <img src="{{ url('public/assets') }}/img/svg/more-horizontal.svg" alt="more-horizontal"
-                                        class="svg">
+                                    <img src="{{ url('public/assets') }}/img/svg/more-horizontal.svg"
+                                        alt="more-horizontal" class="svg">
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">View</a>
+                                    <a class="dropdown-item" href="#"
+                                        onclick="downloadKetinggianAirJamChart()">Download Chart</a>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +157,8 @@
                                         alt="more-horizontal" class="svg">
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">View</a>
+                                    <a class="dropdown-item" href="#"
+                                        onclick="downloadKetinggianAirHariChart()">Download Chart</a>
                                 </div>
                             </div>
                         </div>
@@ -197,7 +200,7 @@
             <div class="col-xxl-12 col-lg-6 mb-25">
                 <div class="card p-0">
                     <div class="card-header color-dark fw-500">
-                        Data <a href="{{ url('ketinggian_air/export') }}"
+                        Data Per Jam <a href="{{ url('ketinggian_air/export') }}"
                             class="btn btn-sm btn-success float-right">Ekspor
                             Data</a>
                     </div>
@@ -211,9 +214,6 @@
                                                 <span class="userDatatable-title">No</span>
                                             </th>
                                             <th>
-                                                <span class="userDatatable-title">Perangkat</span>
-                                            </th>
-                                            <th>
                                                 <span class="userDatatable-title">Lokasi</span>
                                             </th>
                                             <th>
@@ -222,23 +222,18 @@
                                             <th>
                                                 <span class="userDatatable-title">Timestamp</span>
                                             </th>
-                                            <th>
-                                                <span class="userDatatable-title">Aksi</span>
-                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $no = 1;
+                                        @endphp
                                         @foreach ($datas as $data)
                                             <tr>
-                                                <td></td>
+                                                <td>{{ $no++ }}</td>
                                                 <td>
                                                     <div class="userDatatable-content">
                                                         {{ $data->sensor }}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="userDatatable-content">
-                                                        {{ $data->location }}
                                                     </div>
                                                 </td>
                                                 <td>
@@ -251,23 +246,42 @@
                                                         {{ $data->created_at }}
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <div class="userDatatable-content">
-                                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                            action="#" method="POST">
-                                                            <a href="#" class="btn btn-sm btn-primary">EDIT</a>
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-sm btn-danger">HAPUS</button>
-                                                        </form>
-                                                    </div>
-                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                    <div style="margin-left: 2%; font-size: 12px;">
+                        <p>Keterangan :</p>
+                        <div style="display: flex; align-items: center;">
+                            <div
+                                style="width: 20px; height: 20px; background-color: #ff0000; margin-right: 10px; border-radius: 50%;">
+                            </div>
+                            <p><i class="fa fa-exclamation-triangle" style="color: #ff0000;"></i> Bahaya (ketinggian air
+                                antara 70 hingga 88)</p>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div
+                                style="width: 20px; height: 20px; background-color: #ffa500; margin-right: 10px; border-radius: 50%;">
+                            </div>
+                            <p><i class="fa fa-exclamation-circle" style="color: #ffa500;"></i> Siaga (ketinggian air
+                                antara 50 hingga 69)</p>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div
+                                style="width: 20px; height: 20px; background-color: #ffff00; margin-right: 10px; border-radius: 50%;">
+                            </div>
+                            <p><i class="fa fa-exclamation" style="color: #ffff00;"></i> Warning (ketinggian air antara 20
+                                hingga 49)</p>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div
+                                style="width: 20px; height: 20px; background-color: #0000ff; margin-right: 10px; border-radius: 50%;">
+                            </div>
+                            <p><i class="fa fa-check-circle" style="color: #0000ff;"></i> Normal (ketinggian air kurang
+                                dari 20)</p>
                         </div>
                     </div>
                 </div>
@@ -355,25 +369,29 @@
                 success: function(data) {
                     chart.data.labels = [];
                     chart.data.datasets[0].data = [];
+                    var lastProcessedMinute = null;
+
                     data.forEach(function(data) {
                         var waktu = new Date(data.created_at);
                         var jam = waktu.getUTCHours().toString().padStart(2, '0');
                         var menit = waktu.getUTCMinutes().toString().padStart(2, '0');
-                        chart.data.labels.push(jam + ':' + menit);
-                        if (chart.data.labels.length > 12) {
-                            chart.data.labels = chart.data.labels.slice(-12);
+                        var currentMinute = jam + ':' + menit;
+
+                        // Cek apakah data ini memiliki waktu yang sama dengan data sebelumnya
+                        if (currentMinute !== lastProcessedMinute) {
+                            chart.data.labels.push(currentMinute);
+                            if (chart.data.labels.length > 12) {
+                                chart.data.labels = chart.data.labels.slice(-12);
+                            }
+                            chart.data.datasets[0].data.push(data.ketinggian_air);
+                            lastProcessedMinute = currentMinute;
                         }
-                        // var ketinggian_air = data.ketinggian_air;
-                        // if (ketinggian_air > 200) {
-                        //     ketinggian_air = 0;
-                        // } else {
-                        //     ketinggian_air = 200 - ketinggian_air;
-                        // }
-                        chart.data.datasets[0].data.push(data.ketinggian_air);
                     });
+
                     chart.update();
                 }
             });
+
         }
     </script>
 
@@ -420,21 +438,28 @@
                 success: function(data) {
                     chart2.data.labels = [];
                     chart2.data.datasets[0].data = [];
+                    var lastProcessedHour = null;
+
                     data.forEach(function(data) {
-                        var waktu = new Date(data.time);
+                        var waktu = new Date(data.created_at);
                         var jam = waktu.getUTCHours().toString().padStart(2, '0');
-                        var menit = waktu.getUTCMinutes().toString().padStart(2, '0');
-                        var detik = waktu.getUTCSeconds().toString().padStart(2, '0');
-                        chart2.data.labels.push(jam + ':' + menit + ':' +
-                        detik); // Menambahkan detik ke label
-                        if (chart2.data.labels.length > 12) {
-                            chart2.data.labels = chart2.data.labels.slice(-12);
+                        var currentHour = jam + ':00'; // Jam saat ini dalam format "HH:00"
+
+                        // Cek apakah data ini memiliki waktu yang sama dengan data sebelumnya
+                        if (currentHour !== lastProcessedHour) {
+                            chart2.data.labels.push(currentHour);
+                            if (chart2.data.labels.length > 12) {
+                                chart2.data.labels = chart2.data.labels.slice(-12);
+                            }
+                            chart2.data.datasets[0].data.push(data.ketinggian_air);
+                            lastProcessedHour = currentHour;
                         }
-                        chart2.data.datasets[0].data.push(data.ketinggian_air);
                     });
+
                     chart2.update();
                 }
             });
+
 
         }
     </script>
@@ -527,4 +552,40 @@
             direction: 'bottom'
         }).openTooltip();
     </script>
+
+    {{-- scrip download --}}
+    <script>
+        function downloadKetinggianAirMenitChart() {
+            const base64Image = chart.canvas.toDataURL("image/png");
+
+            const downloadLink = document.createElement('a');
+            downloadLink.href = base64Image;
+            downloadLink.download = 'chart_Ketinggian_Air_Per_Menit.png';
+            downloadLink.click();
+        }
+
+        function downloadKetinggianAirJamChart() {
+            const base64Image = chart2.canvas.toDataURL("image/png");
+
+            const downloadLink = document.createElement('a');
+            downloadLink.href = base64Image;
+            downloadLink.download = 'chart_Ketinggian_Air_Per_Jam.png';
+            downloadLink.click();
+        }
+
+        function downloadKetinggianAirHariChart() {
+            const base64Image = chart3.canvas.toDataURL("image/png");
+
+            const downloadLink = document.createElement('a');
+            downloadLink.href = base64Image;
+            downloadLink.download = 'chart_Ketinggian_Air_Per_Hari.png';
+            downloadLink.click();
+        }
+    </script>
+
+    <style>
+        .bg-orange {
+            background-color: orange;
+        }
+    </style>
 @endsection

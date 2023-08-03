@@ -110,7 +110,8 @@
                                         class="svg">
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">View</a>
+                                    <a class="dropdown-item" href="#" onclick="downloadSuhuJamChart()">Download
+                                        Chart</a>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +148,8 @@
                                         class="svg">
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">View</a>
+                                    <a class="dropdown-item" href="#" onclick="downloadSuhuHariChart()">Download
+                                        Chart</a>
                                 </div>
                             </div>
                         </div>
@@ -177,7 +179,7 @@
             <div class="col-xxl-7 col-lg-6 mb-25">
                 <div class="card p-0">
                     <div class="card-header color-dark fw-500">
-                        Data <a href="{{ url('suhu/export') }}" class="btn btn-sm btn-success float-right">Ekspor
+                        Data Per Hari<a href="{{ url('suhu/export') }}" class="btn btn-sm btn-success float-right">Ekspor
                             Data</a>
                     </div>
                     <div class="card-body p-0" style="height: : 10 rem">
@@ -190,9 +192,6 @@
                                                 <span class="userDatatable-title">No</span>
                                             </th>
                                             <th>
-                                                <span class="userDatatable-title">Perangkat</span>
-                                            </th>
-                                            <th>
                                                 <span class="userDatatable-title">Lokasi</span>
                                             </th>
                                             <th>
@@ -201,23 +200,18 @@
                                             <th>
                                                 <span class="userDatatable-title">Timestamp</span>
                                             </th>
-                                            <th>
-                                                <span class="userDatatable-title">Aksi</span>
-                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $no = 1;
+                                        @endphp
                                         @foreach ($datas as $data)
                                             <tr>
-                                                <td></td>
+                                                <td>{{ $no++ }}</td>
                                                 <td>
                                                     <div class="userDatatable-content">
                                                         {{ $data->sensor }}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="userDatatable-content">
-                                                        {{ $data->location }}
                                                     </div>
                                                 </td>
                                                 <td>
@@ -228,18 +222,6 @@
                                                 <td>
                                                     <div class="userDatatable-content">
                                                         {{ $data->created_at }}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="userDatatable-content">
-                                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                            action="#" method="POST">
-                                                            <a href="#" class="btn btn-sm btn-primary">EDIT</a>
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-sm btn-danger">HAPUS</button>
-                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -372,18 +354,24 @@
                 success: function(data) {
                     chart2.data.labels = [];
                     chart2.data.datasets[0].data = [];
+                    var lastProcessedHour = null;
+
                     data.forEach(function(data) {
-                        var waktu = new Date(data.time);
+                        var waktu = new Date(data.created_at);
                         var jam = waktu.getUTCHours().toString().padStart(2, '0');
-                        var menit = waktu.getUTCMinutes().toString().padStart(2, '0');
-                        var detik = waktu.getUTCSeconds().toString().padStart(2, '0');
-                        chart2.data.labels.push(jam + ':' + menit + ':' +
-                        detik); // Menambahkan detik ke label
-                        if (chart2.data.labels.length > 12) {
-                            chart2.data.labels = chart2.data.labels.slice(-12);
+                        var currentHour = jam + ':00'; // Jam saat ini dalam format "HH:00"
+
+                        // Cek apakah data ini memiliki waktu yang sama dengan data sebelumnya
+                        if (currentHour !== lastProcessedHour) {
+                            chart2.data.labels.push(currentHour);
+                            if (chart2.data.labels.length > 12) {
+                                chart2.data.labels = chart2.data.labels.slice(-12);
+                            }
+                            chart2.data.datasets[0].data.push(data.suhu);
+                            lastProcessedHour = currentHour;
                         }
-                        chart2.data.datasets[0].data.push(data.suhu);
                     });
+
                     chart2.update();
                 }
             });
@@ -472,5 +460,26 @@
             permanent: true,
             direction: 'bottom'
         }).openTooltip();
+    </script>
+
+    {{-- scrip download --}}
+    <script>
+        function downloadSuhuJamChart() {
+            const base64Image = chart2.canvas.toDataURL("image/png");
+
+            const downloadLink = document.createElement('a');
+            downloadLink.href = base64Image;
+            downloadLink.download = 'chart_Suhu_Per_Jam.png';
+            downloadLink.click();
+        }
+
+        function downloadSuhuHariChart() {
+            const base64Image = chart3.canvas.toDataURL("image/png");
+
+            const downloadLink = document.createElement('a');
+            downloadLink.href = base64Image;
+            downloadLink.download = 'chart_Suhu_Per_Hari.png';
+            downloadLink.click();
+        }
     </script>
 @endsection

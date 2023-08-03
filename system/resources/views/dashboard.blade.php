@@ -89,7 +89,7 @@
                     </div>
                     <div class="banner-card__top align-center-v justify-content-between">
                         <div>
-                            <h5 style="color: #fff">Status KID</h5>
+                            <h5 style="color: #fff">Status Ketinggian Muka Air</h5>
                             <h1
                                 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:#fff">
                                 <span id="kid-status">-</span>
@@ -200,7 +200,7 @@
     <div class="col-xxl-6 col-lg-6 mb-25" style="height: 10rem;">
         <div class=" card card-md mb-4">
             <div class="card-header color-dark fw-500">
-                Data <a href="{{ url('export') }}" class="btn btn-sm btn-success float-right">Ekspor
+                Data Per Jam <a href="{{ url('export') }}" class="btn btn-sm btn-success float-right">Ekspor
                     Data</a>
             </div>
             <div class="card-body p-0">
@@ -211,9 +211,6 @@
                                 <tr class="userDatatable-header">
                                     <th>
                                         <span class="userDatatable-title">No</span>
-                                    </th>
-                                    <th>
-                                        <span class="userDatatable-title">Perangkat</span>
                                     </th>
                                     <th>
                                         <span class="userDatatable-title">Lokasi</span>
@@ -233,10 +230,6 @@
                                     <th>
                                         <span class="userDatatable-title">Timestamp</span>
                                     </th>
-                                    <th>
-                                        <span class="userDatatable-title">Aksi</span>
-                                    </th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -251,11 +244,6 @@
                                         <td>
                                             <div class="userDatatable-content">
                                                 {{ $data->sensor }}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="userDatatable-content">
-                                                {{ $data->location }}
                                             </div>
                                         </td>
                                         <td>
@@ -275,23 +263,18 @@
                                         </td>
                                         <td>
                                             <div class="userDatatable-content">
-                                                {{ $data->status_air }}
+                                                @if ($data->status_air == 1)
+                                                    Hujan
+                                                @elseif ($data->status_air == 2)
+                                                    Tidak Hujan
+                                                @else
+                                                    Data Tidak Valid
+                                                @endif
                                             </div>
                                         </td>
                                         <td>
                                             <div class="userDatatable-content">
                                                 {{ $data->created_at }}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="userDatatable-content">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="#"
-                                                    method="POST">
-                                                    <a href="#" class="btn btn-sm btn-primary">EDIT</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                                                </form>
                                             </div>
                                         </td>
                                     </tr>
@@ -303,23 +286,24 @@
                 <div style="margin-left: 2%; font-size: 12px;">
                     <p>Keterangan :</p>
                     <div style="display: flex; align-items: center;">
-                        <div style="width: 20px; height: 20px; background-color: red; margin-right: 10px;"></div>
-                        <p>Bahaya (ketinggian air antara 70 hingga 88)</p>
+                        <div style="width: 20px; height: 20px; background-color: #ff0000; margin-right: 10px; border-radius: 50%;"></div>
+                        <p><i class="fa fa-exclamation-triangle" style="color: #ff0000;"></i> Bahaya (ketinggian air antara 70 hingga 88)</p>
                     </div>
                     <div style="display: flex; align-items: center;">
-                        <div style="width: 20px; height: 20px; background-color: orange; margin-right: 10px;"></div>
-                        <p>Siaga (ketinggian air antara 50 hingga 69)</p>
+                        <div style="width: 20px; height: 20px; background-color: #ffa500; margin-right: 10px; border-radius: 50%;"></div>
+                        <p><i class="fa fa-exclamation-circle" style="color: #ffa500;"></i> Siaga (ketinggian air antara 50 hingga 69)</p>
                     </div>
                     <div style="display: flex; align-items: center;">
-                        <div style="width: 20px; height: 20px; background-color: yellow; margin-right: 10px;"></div>
-                        <p>Warning (ketinggian air antara 20 hingga 49)</p>
+                        <div style="width: 20px; height: 20px; background-color: #ffff00; margin-right: 10px; border-radius: 50%;"></div>
+                        <p><i class="fa fa-exclamation" style="color: #ffff00;"></i> Warning (ketinggian air antara 20 hingga 49)</p>
                     </div>
                     <div style="display: flex; align-items: center;">
-                        <div style="width: 20px; height: 20px; background-color: blue; margin-right: 10px;"></div>
-                        <p>Normal (ketinggian air kurang dari 20)</p>
+                        <div style="width: 20px; height: 20px; background-color: #0000ff; margin-right: 10px; border-radius: 50%;"></div>
+                        <p><i class="fa fa-check-circle" style="color: #0000ff;"></i> Normal (ketinggian air kurang dari 20)</p>
                     </div>
                 </div>
                 
+
             </div>
         </div>
     </div>
@@ -471,6 +455,10 @@
 
         #map {
             height: 600px;
+        }
+
+        .bg-orange {
+            background-color: orange;
         }
     </style>
 

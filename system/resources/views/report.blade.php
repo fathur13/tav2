@@ -619,7 +619,7 @@
 
             const downloadLink = document.createElement('a');
             downloadLink.href = base64Image;
-            downloadLink.download = 'chart_Suhu.png';
+            downloadLink.download = 'chart_Ketinggian_Air.png';
             downloadLink.click();
         }
 
