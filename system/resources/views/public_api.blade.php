@@ -18,7 +18,7 @@
                             <div class="dropdown dropleft">
                                 <a href="#" role="button" id="Today" data-bs-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                    <img src="img/svg/more-horizontal.svg" alt="more-horizontal" class="svg">
+                                    <img src="{{ url('public/assets') }}/img/svg/more-horizontal.svg" alt="more-horizontal" class="svg">
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="Today">
                                     <a class="dropdown-item" href="#">Action</a>

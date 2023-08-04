@@ -125,7 +125,7 @@
                                         <div class="account-profile">
                                             <div class="ap-img w-100 d-flex justify-content-center">
                                                 <img class="ap-img__main rounded-circle mb-3  wh-120 d-flex bg-opacity-primary"
-                                                    src="{{ url('public/assets') }}/img/avatar.png" alt="profile">
+                                                    src="{{ url('public/assets') }}/img/author-nav.jpg" alt="profile">
                                             </div>
                                             <div class="ap-nameAddress pb-3 pt-1">
                                                 <h5 class="ap-nameAddress__title">{{ Auth::user()->name }}</h5>
