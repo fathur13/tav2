@@ -19,17 +19,17 @@ class ApiPostController extends Controller
         $status_air = $request->value4;
 
         // kenaikan air
-        $kenaikan_air = 28 - $ketinggian_air;
+        $kenaikan_air = 23 - $ketinggian_air;
         if ($kenaikan_air < 0) {
             $kenaikan_air = 0;
         }
 
         // Menentukan status berdasarkan nilai yang diterima
-        if ($kenaikan_air >= 21 && $kenaikan_air <= 28) {
+        if ($kenaikan_air >= 18 && $kenaikan_air <= 23) {
             $status = 'bahaya';
-        } elseif ($kenaikan_air >= 14 && $kenaikan_air < 21) {
+        } elseif ($kenaikan_air >= 12 && $kenaikan_air < 18) {
             $status = 'siaga';
-        } elseif ($kenaikan_air >= 7 && $kenaikan_air < 14) {
+        } elseif ($kenaikan_air >= 6 && $kenaikan_air < 12) {
             $status = 'warning';
         } else {
             $status = 'normal';
