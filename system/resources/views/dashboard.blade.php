@@ -103,6 +103,25 @@
                 </div>
             </figure>
         </div>
+        {{-- <div class="col-xxl-12 col-sm-6 mb-25">
+            <figure class="feature-cards7 feature-cards7--2">
+                <div class="banner-card" id="kid-status-card">
+                    <div class="banner-card__top align-center-v justify-content-between">
+                        <div>
+                            <h5 style="color: #fff">Status Ketinggian Muka Air</h5>
+                            <h1
+                                style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:#fff">
+                                <span id="kid-status">-</span>
+                            </h1>
+                        </div>
+                        <div class="text-right">
+                            <h6 style="font-weight:bold;color:#fff">Ketinggian Air</h6>
+                            <h2 style="font-weight:bold; font-size:3em; color:#fff"><span id="ketinggian-air"></span>cm</h2>
+                        </div>
+                    </div>
+                </div>
+            </figure>
+        </div> --}}
 
         <div class="col-xxl-12 col-lg-6 mb-25">
             <div class="card border-0 chartLine-po-details h-100">

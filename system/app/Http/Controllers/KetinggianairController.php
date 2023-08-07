@@ -22,13 +22,13 @@ class KetinggianairController extends Controller
 
         if ($kenaikan_air) { // Perlu dilakukan pengecekan apakah data $kenaikan_air ada atau tidak
             // Mengecek ketinggian air dan menentukan status dan warna background
-            if ($kenaikan_air->ketinggian_air >= 70 && $kenaikan_air->ketinggian_air <= 88) {
+            if ($kenaikan_air->ketinggian_air >= 17 && $kenaikan_air->ketinggian_air <= 22) {
                 $status = "Bahaya";
                 $color = "danger";
-            } else if ($kenaikan_air->ketinggian_air >= 50 && $kenaikan_air->ketinggian_air < 70) {
+            } else if ($kenaikan_air->ketinggian_air >= 12 && $kenaikan_air->ketinggian_air < 17) {
                 $status = "Siaga";
                 $color = "orange";
-            } else if ($kenaikan_air->ketinggian_air >= 20 && $kenaikan_air->ketinggian_air < 50) {
+            } else if ($kenaikan_air->ketinggian_air >= 7 && $kenaikan_air->ketinggian_air < 12) {
                 $status = "Warning";
                 $color = "warning";
             } else {
