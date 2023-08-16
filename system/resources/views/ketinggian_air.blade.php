@@ -335,7 +335,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Ketinggian Air (cm)',
+                    label: 'Ketinggian Air (cm/menit)',
                     data: [],
                     borderWidth: 4,
                     borderColor: 'rgba(153, 0, 153)',
@@ -404,7 +404,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Ketinggian Air (cm)',
+                    label: 'Ketinggian Air (cm/jam)',
                     data: [],
                     borderWidth: 4,
                     borderColor: 'rgba(153, 0, 153)',
@@ -473,7 +473,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Ketinggian Air (cm)',
+                    label: 'Ketinggian Air (cm/hari)',
                     data: [],
                     borderWidth: 4,
                     borderColor: 'rgba(153, 0, 153)',

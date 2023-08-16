@@ -383,7 +383,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                        label: 'Kelembapan',
+                        label: 'Kelembapan (%)',
                         data: [],
                         borderWidth: 4,
                         borderColor: 'rgba(75, 192, 192, 1)',
@@ -391,7 +391,7 @@
                         fill: false
                     },
                     {
-                        label: 'Suhu',
+                        label: 'Suhu (c)',
                         data: [],
                         borderWidth: 4,
                         borderColor: 'rgba(153, 0, 153)',
@@ -399,7 +399,7 @@
                         fill: false
                     },
                     {
-                        label: 'Ketinggian Air',
+                        label: 'Ketinggian Air (cm)',
                         data: [],
                         borderWidth: 4,
                         borderColor: 'rgba(255, 0, 0)',

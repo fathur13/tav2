@@ -320,7 +320,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Suhu',
+                    label: 'Suhu (c/jam)',
                     data: [],
                     borderWidth: 4,
                     borderColor: 'rgba(153, 0, 153)',
@@ -387,7 +387,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Suhu',
+                    label: 'Suhu (c/hari)',
                     data: [],
                     borderWidth: 4,
                     borderColor: 'rgba(153, 0, 153)',

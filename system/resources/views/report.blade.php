@@ -19,11 +19,11 @@
                     // Memeriksa apakah sedang hujan atau tidak
                     if (data == "1") {
                         // Mengubah teks menjadi "Hujan"
-                        $("#cuaca-text").text("Hujan!");
+                        $("#cuaca-text").text("Hujan");
                         // Mengubah latar belakang menjadi gambar hujan
                     } else if (data == "2") {
                         // Mengubah teks menjadi "Tidak hujan"
-                        $("#cuaca-text").text("Tidak Hujan!");
+                        $("#cuaca-text").text("Tidak Hujan");
                     } else {
                         $("#cuaca-text").text("Invalid data");
                     }
@@ -37,21 +37,22 @@
             <div class="col-xxl-3 col-sm-6 mb-25">
                 <div class="ap-po-details ap-po-details--2 p-25 radius-xl d-flex justify-content-between">
                     <div class="overview-content w-100">
-                        <div class="ap-po-details-content d-flex flex-wrap justify-content-between">
+                        <div class="ap-po-details-time mb-25">
+                            <small></small> Ketinggian Air
+                            <span></i>
+                                <strong></strong></span>
+                        </div>
+                        <div class="ap-po-details-content d-flex flex-wrap justify-content-between bm-0">
                             <div class="ap-po-details__titlebar">
-                                <h1>Ketinggian Air</h1>
-                                {{-- <p>Ketinggian Air</p> --}}<br><br>
+                                <h1 id="ketinggian-air">-</h1>
+                                <span id="kid-status"></i>
+                                    <strong></strong></span>
                             </div>
-                            <div class="ap-po-details__icon-area">
+                            <div class="ap-po-details__icon-area mb-0">
                                 <div class="svg-icon order-bg-opacity-primary color-primary">
                                     <i class="uil uil-arrow-growth"></i>
                                 </div>
                             </div>
-                        </div>
-                        <div class="ap-po-details-time">
-                            <small id="ketinggian-air"></small> cm,
-                            <span id="kid-status"></i>
-                                <strong></strong></span>
                         </div>
                     </div>
                 </div>
@@ -59,9 +60,13 @@
             <div class="col-xxl-3 col-sm-6 mb-25">
                 <div class="ap-po-details ap-po-details--2 p-25 radius-xl d-flex justify-content-between">
                     <div class="overview-content w-100">
+                        <div class="ap-po-details-time mb-25">
+                            <small>Suhu</small>
+                        </div>
                         <div class="ap-po-details-content d-flex flex-wrap justify-content-between">
                             <div class="ap-po-details__titlebar">
-                                <h1>Suhu</h1>
+                                <h1 id="suhu">-</h1>
+                                <small>℃</small>
                             </div>
                             <div class="ap-po-details__icon-area">
                                 <div class="svg-icon order-bg-opacity-info color-info">
@@ -69,19 +74,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ap-po-details-time mt-25">
-                            <small id="suhu"></small>
-                            <small>℃</small>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-xxl-3 col-sm-6 mb-25">
                 <div class="ap-po-details ap-po-details--2 p-25 radius-xl d-flex justify-content-between">
                     <div class="overview-content w-100">
+                        <div class="ap-po-details-time mb-25">
+                            <small>Kelembapan</small>
+                        </div>
                         <div class="ap-po-details-content d-flex flex-wrap justify-content-between">
                             <div class="ap-po-details__titlebar">
-                                <h1>Kelembapan</h1>
+                                <h1 id="kelembapan">-</h1>
+                                <small>%</small>
                             </div>
                             <div class="ap-po-details__icon-area">
                                 <div class="svg-icon order-bg-opacity-secondary color-secondary">
@@ -89,28 +94,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ap-po-details-time mt-25">
-                            <small id="kelembapan"></small>
-                            <small>%</small>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-xxl-3 col-sm-6 mb-25">
                 <div class="ap-po-details ap-po-details--2 p-25 radius-xl d-flex justify-content-between">
                     <div class="overview-content w-100">
+
+                        <div class="ap-po-details-time mb-25">
+                            <small>Cuaca</small>
+                        </div>
                         <div class="ap-po-details-content d-flex flex-wrap justify-content-between">
                             <div class="ap-po-details__titlebar">
-                                <h1>Cuaca</h1>
+                                <h1 id="cuaca-text">-</h1>
                             </div>
                             <div class="ap-po-details__icon-area">
                                 <div class="svg-icon order-bg-opacity-warning color-warning">
                                     <i class="uil uil-images"></i>
                                 </div>
                             </div>
-                        </div>
-                        <div class="ap-po-details-time mt-25">
-                            <small id="cuaca-text"></small>
                         </div>
                     </div>
                 </div>
@@ -336,7 +338,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Ketinggian Air (cm)',
+                    label: 'Ketinggian Air (cm / bulan)',
                     data: [],
                     borderWidth: 4,
                     borderColor: 'rgba(153, 0, 153)',
@@ -432,7 +434,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Suhu (°C)',
+                    label: 'Suhu (°C / bulan)',
                     data: [],
                     borderWidth: 4,
                     borderColor: 'rgba(153, 0, 153)',
@@ -526,7 +528,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Kelembapan (%)',
+                    label: 'Kelembapan (% / bulan)',
                     data: [],
                     borderWidth: 4,
                     borderColor: 'rgba(153, 0, 153)',

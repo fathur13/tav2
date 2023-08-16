@@ -318,7 +318,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Kelembapan',
+                    label: 'Kelembapan (%/jam)',
                     data: [],
                     borderWidth: 4,
                     borderColor: 'rgba(153, 0, 153)',
@@ -385,7 +385,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Kelembapan',
+                    label: 'Kelembapan (%/hari)',
                     data: [],
                     borderWidth: 4,
                     borderColor: 'rgba(153, 0, 153)',

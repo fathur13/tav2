@@ -10,6 +10,14 @@ class ApiPostController extends Controller
 {
     public function storeOrUpdate(Request $request)
     {
+        // Menerima kunci API dari permintaan
+        $received_api_key = $request->query('key');
+
+        // Bandingkan kunci yang diterima dengan kunci API yang dihasilkan
+        if (
+            $received_api_key !== "c9e9f59fa51f2ab7dab3355f01c6f705a8d3a6c3bc5b7b8b5709d2b9ca3df3ff") {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
         $time = Carbon::now();
         $sensor = $request->sensor;
         $location = $request->location;

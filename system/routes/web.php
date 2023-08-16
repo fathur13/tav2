@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\ApiPostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CuacaController;
 use App\Http\Controllers\DashboardController;
