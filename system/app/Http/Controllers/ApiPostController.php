@@ -12,6 +12,7 @@ class ApiPostController extends Controller
     {
         // Menerima kunci API dari permintaan
         $received_api_key = $request->query('key');
+        
 
         // Bandingkan kunci yang diterima dengan kunci API yang dihasilkan
         if (
